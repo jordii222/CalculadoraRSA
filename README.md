@@ -1,1 +1,31 @@
-# CalculadoraRSA
+# Cryptographic calculator
+A calculator providing support for basic operations and cryptographic functions written in C.
+
+
+![logo1](https://github.com/jordii222/CalculadoraRSA/assets/157251726/e56a6851-4070-4717-9501-5f033aba9385)
+
+
+## Features
+Basic mathematics: Basic mathematic expressions with many operations and operands are supported (+,-,*,/) Included cryptographic functions:
+
+* Caesar cypher
+* Afine cypher
+* RSA
+
+## Useful development resources
+
+* ChatGPT for base code generation
+
+https://chat.openai.com/auth/login
+
+* Copilot for base code generation
+
+https://copilot.microsoft.com/
+
+* Wolfram Alpha for big prime generation
+
+https://www.wolframalpha.com/
+
+* ASCIIFlow for diagram
+
+https://asciiflow.com/
