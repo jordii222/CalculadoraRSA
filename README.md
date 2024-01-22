@@ -17,7 +17,7 @@ Basic mathematic expressions with several operations and operands are supported 
 * RSA
 
 ## Useful development resources
-* ASCIIFlow for brainstorming and program flow control
+* ASCIIFlow for brainstorming and program flow control (recommended for schema.txt visualization)
 
   https://asciiflow.com/
 
