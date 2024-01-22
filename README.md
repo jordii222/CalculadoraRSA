@@ -2,7 +2,7 @@
 A calculator providing support for basic operations and cryptographic functions written in C.
 
 <a href="url"><img align="center" src="https://github.com/jordii222/CalculadoraRSA/assets/157251726/e56a6851-4070-4717-9501-5f033aba9385" align="left" width=40% height=40%></a>
-<br clear="left"/>
+<br clear="center"/>
 
 
 ## Features
