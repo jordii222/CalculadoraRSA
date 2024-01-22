@@ -1,0 +1,112 @@
+┌─────────────────────┐
+│                     │
+│ CLI Interface:      │
+│                     │
+│ - STDIN & STDOUT    │ Program  ◄────────────────────────────────────────────────────────────────┐
+│                     │ output                                                                    │
+│ - Interactive mode  │                                                                           │
+│                     │                                                                           │
+│                     │                                                                           │
+└─────────────────────┘                                                                           │
+     User input                                                                                   │
+                                                                                                  │
+         │                                                                                        │
+         │                                                                                        │
+         │                                                                                        │
+         │                                                                                        │
+         ▼                                                                                        │
+                                                                                                  │
+  Parsing algorithm                                                                               │
+  │                                                           ┌─────────┐                         │
+  └──►  Abstract syntax tree (AST)                            │ Symbols │                         │
+                                                              └─────────┘                         │
+            │                                                                                     │
+            │                                             ┌───► Numbers   ────┐                   │
+            │                                             │                   │                   │
+            ▼                                             │                   │                   │
+                                                          │                   │
+        Tokenization  ──────────►  Tree building  ────────┼───► Operators ────┼──────►  Expression evaluation
+     (symbol extraction)        (operation priority)      │                   │               (Result)
+                                                          │                   │
+                                                          │                   │
+                                                          └───► Functions ────┘
+
+                                                                    │
+            ┌───────────────────────────────────────────────────────┘
+            │
+            ▼
+
+  Basic mathematical operations (+,-,*,/)
+
+  +
+
+  Functions
+  │
+  ├─►  Caesar cryptosystem (encrypt/decrypt)
+  │
+  ├─►  Afine cryptosystems (encrypt/decrypt)
+  │
+  ├─►  RSA (encrypt/decrypt)  ────────────────────────────┐
+  │                                                       ├─────►  Operations with really big integers
+  └─►  Diffie-Hellman key exchange (key generation)  ─────┘
+                                                                                 │
+                                                                                 │
+                                                                                 ▼
+
+                                                                      Arbitrary precision library
+
+                                                                                 │
+                                                                                 │
+                                                                                 │
+                                                                                 ▼
+                                                                    ┌──────────────────────────────┐
+                                                                    │ Addition/subtraction         │
+                                                                    │ Multiplication               │
+                                                                    │ Exponentiation               │
+                                                                    │ Integer division and modulus │
+                                                                    └──────────────────────────────┘
+
+
+
+
+
+
+
+
+  RSA algorithm                                               Functions:
+                                                              pub_priv_key() ───► Generate a public and a private key (p, q, n, ϕ(n), e, d)
+  Bob (receiver):                        ───┐                 │
+  1. Chose two big primers p and q          │                 └─►  big_prime() ───► Big prime generation for p and q
+  2. Compute n=p*q and ϕ(n)=(p-1)*(q-1)     │                      │
+  3. Chose an exponent e (hardcoded?)       │    requires          ├─►  primality(prime) ───► Test primality
+     with 2<e<ϕ(n)and coprime with ϕ(n)     ├─────────────►        └─►  fast_modulo_exponentiation(base, exponent, modulo) ───►
+  4. Compute the inverse d of e modulo ϕ(n) │                      coprime(ϕ(n)) ───► Given the value of ϕ(n) find a coprime e greater than 2
+     (extended Euclid's algotithm)          │                      │
+     d*e≡1 mod ϕ(n)                         │                      └─►  gcd() ───► Compute the greatest common divisor of two numbers.
+  Public key: (n,e)                         │                      mod_inverse(e, ϕ(n)) ───► Calculate the inverse d of e modulo ϕ(n)
+  Private key: d                         ───┘
+
+  Alice (sender):                        ───┐
+  5. Encode message (m) into blocs          │    requires     block_size(alphabet, n) ───► Determinate block size given an alphabet and n
+  6. Encrypt blocs using c≡m^e mod n        ├─────────────►   encode_message(alphabet, message, block size) ───► Transform the message in an array of encoded blocks
+     with Bob's public key                  │                 encrypt_message(array of encoded blocks, number of blocks, e, n)
+  7. Send c                              ───┘
+
+  Bob (receiver):                        ───┐    requires
+  8. Decrypt using c^d≡m                    ├─────────────►   decrypt_message() ───►
+                                         ───┘
+
+
+  Diffie-Hellman key exchange algorithm
+
+  Alice and Bob:
+  1. Publicly agree on a large prime mod p
+     and a primitive root g mod p
+  2. Chose a random number n between 1 and p−1
+     and compute g^n
+     a and g^a for Alice and b and g^b for Bob
+     Public key: g^n
+     Private key: n
+  3. Both share their respective public keys
+  4. Both compute the shared key g^a^b and g^b^a
+     K=g^a^b
