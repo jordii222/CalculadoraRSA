@@ -1,0 +1,147 @@
+#/bin/sh
+# check if argument was passed
+[ -z "$1" ] && echo "Error: no input file specified" && exit 1
+
+# You can pull compiler flags using pkg-config:
+#  pkg-config [package] --cflags
+#  pkg-config [package] --libs
+# get libraries used in the input file
+libs=$(grep -oP '#include <\K([a-zA-Z0-9_/]+)\.h' "$1" | sort | uniq)
+# print libraries and their corresponding flags
+for lib in $libs; do
+  case $lib in
+    stdio.h|stdlib.h|stdint.h|string.h|stdbool.h|stddef.h|unistd.h|wchar.h|termios.h|ctype.h|assert.h|time.h|locale.h|limits.h|fcntl.h|sys/select.h) # Fallthrough, no flags needed
+      ;;
+    math.h) # Mathematical functions (sqrt,sin,cos,pow)
+      flags="$flags -lm"
+      ;;
+    gmp.h) # Arbitrary precision arithmetic library
+      flags="$flags -lgmp"
+      ;;
+    openssl.h|openssl/pem.h|openssl/rsa.h|openssl/engine.h) # OpenSSL cryptographic library
+      flags="$flags -lssl -lcrypto"
+      ;;
+    sys/inotify.h) # Kernel subsystem to monitor changes in filesystem
+      flags="$flags -lpthread"
+      ;;
+    Python.h) # Allows embedding and interacting with Python
+      flags="$flags -I/usr/include/python3.8 -lpython3.8"
+      ;;
+    curl.h|curl/curl.h) # Provides functions for transferring data with URLs
+      flags="$flags -lcurl"
+      ;;
+    ncurses.h) # Create text-based user interfaces
+      flags="$flags -lncurses"
+      #flags="$flags -lncursesw"
+      ;;
+    panel.h) # Related to ncurses
+      flags="$flags -lpanel"
+      ;;
+    gnuplot_i.h) # Interface with Gnuplot for creating graphs and plots
+      flags="$flags -lgnuplot_i"
+      ;;
+    gtk.h) # Create graphical user interfaces with the GTK toolkit
+      flags="$flags `pkg-config --cflags --libs gtk+-3.0`"
+      ;;
+    gio.h) # Create graphical user interfaces with the GTK toolkit.
+      flags="$flags `pkg-config --cflags --libs gio-2.0`"
+      ;;
+    fann.h) # Fast Artificial Neural Network
+      flags="$flags -lfann"
+      ;;
+    graphics.h) # TurboC graphics library for simple graphical applications
+      flags="$flags -lgraph"
+      ;;
+    libharu/hpdf.h|hpdf.h) # Create PDF documents using the libHaru library
+      flags="$flags -lhpdf -lharu"
+      ;;
+    pdfgen.h) # Create PDF documents using the PDFgen library
+      flags="$flags -lpdfgen"
+      ;;
+    poppler/glib/poppler.h|poppler.h) # Create or render PDF documents using the poppler library
+      flags="$flags -I/usr/include/cairo -I/usr/include/libpng16 -I/usr/include/freetype2 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-6 -pthread -I/usr/include/pixman-1 -lcairo -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/poppler -I/usr/include/poppler/glib -lpoppler -lpoppler-glib"
+      ;;
+    cairo.h) # Work with vector graphics
+      flags="$flags -I/usr/include/cairo -I/usr/include/libpng16 -I/usr/include/freetype2 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-6 -pthread -I/usr/include/pixman-1 -lcairo"
+      ;;
+    sqlite3.h) # Interac with SQLite databases
+      flags="$flags -lsqlite3"
+      ;;
+    gl.h|GL/gl.h|GL/glu.h) # OpenGL graphics programming
+      flags="$flags -lGL -lGLU -lEGL -lOpenGL"
+      ;;
+    glew.h|GL/glew.h) # GLEW
+      flags="$flags -lGLEW -lEGL -lGL -lGLU -lOpenGL"
+      ;;
+    glut.h|GL/glut.h) # GLUT
+      flags="$flags  -lGL -lGLU -lglut"
+      ;;
+    glfw3.h|GLFW/glfw3.h) # GLFW
+      flags="$flags -lglfw3"
+      ;;
+    vulkan/vulkan.h) # Vulkan graphics API for high-performance graphics rendering
+      flags="$flags -lvulkan"
+      ;;
+    SDL.h|SDL2/SDL.h|SDL2/SDL_ttf.h) # Provides multimedia and input/output functions for creating games and multimedia applications
+      flags="$flags -lSDL2 -lSDL2_image -lSDL2_ttf -I/usr/include/SDL2 -D_REENTRANT -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -lSDL -lGLEW -lEGL -lGL -lGLU -lOpenGL"
+      ;;
+    openal.h) # OpenAL library for audio programming
+      flags="$flags -lopenal"
+      ;;
+    ft2build.h) # FreeType font rendering
+      flags="$flags -lfreetype -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -pthread"
+      ;;
+    X11/Xlib.h|X11/Xutil.h|X11/Xos.h|X11/X.h|X11/Xfuncproto.h|X11/Xdefs.h) # X Window System programming
+      flags="$flags -lX11"
+      ;;
+    X11/extensions/scrnsaver.h) # X Window System screen saving
+      flags="$flags -lXss"
+      ;;
+    X11/extensions/Xrandr.h) # X Window System screen resolution
+      flags="$flags -lXrandr"
+      ;;
+    X11/extensions/Xinerama.h) # X Window System support for multi-monitor setups
+      flags="$flags -lXinerama"
+      ;;
+    gsl/gsl.h) # GNU Scientific Library
+      flags="$flags -lgsl -lgslcblas"
+      ;;
+    lapacke.h) # Linear Algebra Package
+      flags="$flags -llapacke -llapack -lblas"
+      ;;
+    mpfr.h) # Multiple Precision Floating-Point Reliable
+      flags="$flags -lmpfr"
+      ;;
+    ode/ode.h) # Open Dynamics Engine
+      flags="$flags -lode"
+      ;;
+    petscksp.h) # Portable, Extensible Toolkit for Scientific Computation
+      flags="$flags -lpetsc"
+      ;;
+    simbody/simbody.h) # High-performance C++ multibody dynamics/physics library
+      flags="$flags -lsimbody"
+      ;;
+    BulletDynamics/btBulletDynamicsCommon.h) # Physics engine for 3D simulations
+      flags="$flags -lBulletDynamics -lBulletCollision -lLinearMath"
+      ;;
+    libxml/HTMLparser.h|libxml/xpath.h) # Parsing and manipulating XML and HTML documents
+      flags="$flags -I/usr/include/libxml2 -lxml2 -lm"
+      ;;
+    libserialport.h) # Serial port communication
+      flags="$flags -lserialport"
+      ;;
+    *)
+      echo "$lib library found, no additional flags needed"
+      ;;
+  esac
+done
+# Add custom flags
+flags="-Werror -D_JUDGE_ -DNDEBUG -O2 $flags"
+# Print resulting flags
+#echo "$flags"
+# Extract filename for executable (Could use too: $(basename $1 .c))
+filename=$(echo "$1" | sed 's/\.[^.]*$//')
+# Compile using Clang and execute passing CLI arguments
+clang -g -o "$filename" "$1" $flags && chmod +x "$filename" && shift && echo "Running..." && "./$filename" "${@}" && rm $filename
+# clang "$1" -D_JUDGE_ -DNDEBUG -O2 "$flags" && chmod +x a.out && shift && "./a.out" "${@}" # Working backup
+
