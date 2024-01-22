@@ -17,19 +17,19 @@ Basic mathematic expressions with several operations and operands are supported 
 * RSA
 
 ## Useful development resources
+* ASCIIFlow for brainstorming and program flow control
+
+  https://asciiflow.com/
 
 * ChatGPT for base code generation
 
-https://chat.openai.com/auth/login
+  https://chat.openai.com/auth/login
 
 * Copilot for base code generation
 
-https://copilot.microsoft.com/
+  https://copilot.microsoft.com/
 
 * Wolfram Alpha for big prime generation
 
-https://www.wolframalpha.com/
+  https://www.wolframalpha.com/
 
-* ASCIIFlow for diagram
-
-https://asciiflow.com/
