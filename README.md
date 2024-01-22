@@ -10,7 +10,7 @@ A calculator providing support for basic operations and cryptographic functions 
 
 Basic mathematic expressions with several operations and operands are supported (+,-,*,/).
 
-**Included cryptographic functions:**
+**Supported cryptographic functions:**
 
 * Caesar cypher
 * Afine cypher
