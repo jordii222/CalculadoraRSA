@@ -42,7 +42,7 @@ Basic mathematic expressions with several operations and operands are supported 
   https://condor.depaul.edu/ichu/csc415/notes/notes4/rsa.html
 
 ## General structure
-
+```
   ┌─────────────────────┐
   │  CLI Interface:     │
   │                     │
@@ -91,9 +91,9 @@ Basic mathematic expressions with several operations and operands are supported 
                                                             ├─►  RSA (encrypt/decrypt)
                                                             │
                                                             └─►  Diffie-Hellman key exchange (key generation)
-
+```
 ## Cryptographic algorithms
-
+```
   ┌───────────────────────────────────────────┐      ┌────────────────────────────────────────────────┐      ┌─────────────────────────────────────────────────┐
   │ RSA algorithm                             │      │ Diffie-Hellman key exchange algorithm          │      │ ElGamal encryption algorithm                    │
   │                                           │      │                                                │      │                                                 │
@@ -117,9 +117,9 @@ Basic mathematic expressions with several operations and operands are supported 
   │ Bob (receiver):                           │                                                              │ 7. Decrypts the message using m≡c*K^-1≡m mod p  │
   │ 8. Decrypt using c^d≡m                    │                                                              └─────────────────────────────────────────────────┘
   └───────────────────────────────────────────┘
-
+```
 ## Arbitrary precision computations
-
+```
       Operations with really big integers
 
                    │
@@ -140,3 +140,4 @@ Basic mathematic expressions with several operations and operands are supported 
       │ Exponentiation               │
       │ Integer division and modulus │
       └──────────────────────────────┘
+```
