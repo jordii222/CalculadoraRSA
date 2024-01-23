@@ -58,7 +58,7 @@ int main(void) {
     gmp_randstate_t r_state;
     mpz_t p, q, n, phi_n, e, d, m, c;
     unsigned long int seed;
-    int bit_count = 8;  // Número de bits del número primo
+    int bit_count = 1024;  // Número de bits del número primo
 
     mpz_inits(p, q, n, phi_n, e, d, m, c, NULL);
     gmp_randinit_default(r_state);
