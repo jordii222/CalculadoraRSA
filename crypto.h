@@ -1,31 +1,34 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-char caesar_cypher1(const char *alphabet, int num, char ch) {
-    int alphabetSize = strlen(alphabet);
-    char *position = strchr(alphabet, ch);
-    if (position != NULL) {
-        int charIndex = position - alphabet;
-        // Calculate the new character position after adding num
-        char newIndex = (charIndex + num) % alphabetSize;
-        if (newIndex < 0) newIndex += alphabetSize; // Handle negative shifts
-        return alphabet[newIndex];
-    } else {
-        // If the character is not found in the alphabet, return the same character
-        return ch;
+char* caesar_cypher1(int num, const char* input) {
+    int length = strlen(input);
+    char* output = malloc(length + 1);  // Allocate memory for the output string
+    for(int i = 0; i < length; i++) {
+        char ch = input[i];
+        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+            char base = (ch >= 'a' && ch <= 'z') ? 'a' : 'A';
+            output[i] = ((ch - base + num) % 26) + base;
+        } else {
+            // If the character is not a letter, return the same character
+            output[i] = ch;
+        }
     }
+    output[length] = '\0';  // Don't forget to null-terminate the output string
+    return output;
 }
 
 int main() {
-    const char alphabet[] = "abcçdefghijklmnopqrstuvwxyz";
-    int num = 17;
-    const char message[] = "trenqueuelsvidres";
-    for (int i = 0; i < sizeof(message) - 1; i++) {
-      printf("%c",caesar_cypher_catalan2(alphabet, num, message[i]));
-    }
-    printf("\n");
+    int num = 1;
+    const char message[] = "hola bon dia";
+    char* encrypted = caesar_cypher1(num, message);
+    printf("Mensaje original: %s\n", message);
+    printf("Mensaje cifrado: %s\n", encrypted);
+    free(encrypted);  // Don't forget to free the allocated memory
     return 0;
 }
+
 
 char affine_cypher(const char *alphabet, int a, int b, char ch) {
     if (ch == ' ') return ' '; // Ignore spaces
