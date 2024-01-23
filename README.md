@@ -37,7 +37,6 @@ Basic mathematic expressions with several operations and operands are supported 
   
   https://www.programiz.com/c-programming/online-compiler/
 
-## Consulted sources
 * RSA examples for testing purposes
 
 https://condor.depaul.edu/ichu/csc415/notes/notes4/rsa.html
