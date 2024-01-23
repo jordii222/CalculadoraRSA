@@ -88,9 +88,7 @@ Basic mathematic expressions with several operations and operands are supported 
                                                             │
                                                             ├─►  Afine cryptosystems (encrypt/decrypt)
                                                             │
-                                                            ├─►  RSA (encrypt/decrypt)
-                                                            │
-                                                            └─►  Diffie-Hellman key exchange (key generation)
+                                                            └─►  RSA (encrypt/decrypt)
 ```
 ## Cryptographic algorithms
 ```
