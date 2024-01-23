@@ -91,6 +91,7 @@ Basic mathematic expressions with several operations and operands are supported 
                                                             └─►  RSA (encrypt/decrypt)
 ```
 ## Cryptographic algorithms
+This is a summary of several cryptographic or cryptography related algorithms. This program only implements Caesar's cryptosystem, affine cryptosystems and RSA cryptosystem.
 ```
   ┌───────────────────────────────────────────┐      ┌────────────────────────────────────────────────┐      ┌─────────────────────────────────────────────────┐
   │ RSA algorithm                             │      │ Diffie-Hellman key exchange algorithm          │      │ ElGamal encryption algorithm                    │
@@ -117,6 +118,7 @@ Basic mathematic expressions with several operations and operands are supported 
   └───────────────────────────────────────────┘
 ```
 ## Arbitrary precision computations
+It was initially planned to implement our own library for handling arbitrary precision calculations but ultimately gmp has been used for simplicity.
 ```
       Operations with really big integers
 
