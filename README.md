@@ -8,38 +8,11 @@ A calculator providing support for basic mathematical operations and cryptograph
 
 Basic mathematic expressions with several operations and operands are supported (+,-,*,/).
 
-**Supported cryptographic functions:**
+**Cryptographic functions:**
 
 * Caesar cypher
 * Afine cypher
 * RSA
-
-## Useful development resources
-* ASCIIFlow for brainstorming and program flow control (recommended for schema.txt visualization)
-
-  https://asciiflow.com/
-
-* ChatGPT for base code generation
-
-  https://chat.openai.com/auth/login
-
-* Copilot for base code generation
-
-  https://copilot.microsoft.com/
-
-* Wolfram Alpha for big prime generation
-
-  https://www.wolframalpha.com/
-
-* Online C compilers and debbugers
-  
-  https://www.onlinegdb.com/online_c_compiler
-  
-  https://www.programiz.com/c-programming/online-compiler/
-
-* RSA examples for testing purposes
-
-  https://condor.depaul.edu/ichu/csc415/notes/notes4/rsa.html
 
 ## General structure
 ```
@@ -141,3 +114,30 @@ It was initially planned to implement our own library for handling arbitrary pre
       │ Integer division and modulus │
       └──────────────────────────────┘
 ```
+
+## Useful development resources
+* ASCIIFlow for brainstorming and program flow control (recommended for schema.txt visualization)
+
+  https://asciiflow.com/
+
+* ChatGPT for base code generation
+
+  https://chat.openai.com/auth/login
+
+* Copilot for base code generation
+
+  https://copilot.microsoft.com/
+
+* Wolfram Alpha for big prime generation
+
+  https://www.wolframalpha.com/
+
+* Online C compilers and debbugers
+  
+  https://www.onlinegdb.com/online_c_compiler
+  
+  https://www.programiz.com/c-programming/online-compiler/
+
+* RSA examples for testing purposes
+
+  https://condor.depaul.edu/ichu/csc415/notes/notes4/rsa.html
