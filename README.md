@@ -74,7 +74,7 @@ where _a_ and _b_ are the coefficients _c = a*m + b mod _
                                                             └─►  RSA (encrypt/decrypt)
 ```
 ## Cryptographic algorithms
-This is a summary of several cryptographic or cryptography related algorithms. This program only implements Caesar's cryptosystem, affine cryptosystems and RSA cryptosystem.
+This is a summary of several cryptographic or cryptography related algorithms. This program only implements Caesar's cryptosystem, affine cryptosystem and RSA cryptosystem.
 ```
 ┌───────────────────────────────────────────────────────┐               ┌───────────────────────────────────────────┐      
 │ Caesar Cipher:                                        │               │ RSA algorithm                             │      
