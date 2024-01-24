@@ -217,15 +217,15 @@ double eval(AST *node) {
                     free(result);  /* Free memory allocated for result */
                     return 0.0; /* Affine cipher does not return a numerical value */
                 }
-            } else if (strcmp(node->name, "rsaparam") == 0) {
+            } else if (strcmp(node->name, "rsa") == 0) {
                 if (node->numArgs != 3) {
-                    printf("Error: 'rsaparam' function expects 3 arguments\n");
+                    printf("Error: 'rsa' function expects 3 arguments\n");
                     exit(1);
                 } else {
                     const char *prime1 = node->args[0]->name;
                     const char *prime2 = node->args[1]->name;
                     const char *message = node->args[2]->name;
-                    rsaparam(prime1, prime2, message);
+                    rsa(prime1, prime2, message);
                     return 0.0; /* RSA cipher does not return a numerical value */
                 }
             } else if (strcmp(node->name, "bigprime") == 0) {
