@@ -10,11 +10,17 @@ Basic mathematic expressions with several operations and operands are supported 
 
 For example $3 * \sin(1.5708) + 4 / 2$ is a valid expression.
 
+The following trigonometrical functions exist:
+```
+  >> sin(expression)
+  >> cos(expression)
+```
 Other redundant textual functions can be used:
 ```
   >> add(expression1,expression2,expression3,...)
   >> multiply(expression1,expression2,expression3,...)
 ```
+where _expressions_ are numbers or numerically evaluated expressions.
 
 **Cryptographic functions:**
 
@@ -42,6 +48,18 @@ where _p_ is _prime1_ and _q_ is _prime2_.
 ```
 where _bits_ is the length in bits of the generated prime.
 * 
+**User functions:**
+
+* Clear screen
+```
+  >> cl()
+```
+* Exit
+```
+  >> exit
+  >> quit
+  >> q
+```
 
 ## General structure
 ```
