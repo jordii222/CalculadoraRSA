@@ -36,7 +36,7 @@ where shift is the displacement value.
 where _a_ and _b_ are the coefficients ($c=a\cdot m + b \textrm{ mod }\ alphabet_size$).
 * RSA
 ```
-  >> rsaparam("prime1","prime2","message")
+  >> rsa("prime1","prime2","message")
 ```
 where _p_ is _prime1_ and _q_ is _prime2_.
 
