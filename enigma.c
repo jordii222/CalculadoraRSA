@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <gmp.h>
 #include "ast.h"
 
 /* functions */
@@ -59,7 +60,19 @@ void help() {
         "\t-i,\t--input\t\t\t\t\tInput expression\n");
 }
 
+void title(){
+  printf("\033[1;32m");
+  printf("    ______      _                      \n");
+  printf("   / ____/___  (_)___ _____ ___  ____ _\n");
+  printf("  / __/ / __ \\/ / __ `/ __ `__ \\/ __ `/ \n");
+  printf(" / /___/ / / / / /_/ / / / / / / /_/ /  \n");
+  printf("/_____/_/ /_/_/\\__, /_/ /_/ /_/\\__,_/    \n");
+  printf("              /____/                      \n");
+  printf("\033[0m");
+}
+
 int main(int argc, char *argv[]) {
+  title();
   switch(argc) {
     case 1:
       return actio();
