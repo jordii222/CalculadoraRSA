@@ -109,7 +109,7 @@ void decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
     mpz_powm(m, c, d, n);
 }
 
-void rsaparam(const char* prime_str1, const char* prime_str2, const char* message) {
+void rsa(const char* prime_str1, const char* prime_str2, const char* message) {
     mpz_t p, q, n, phi_n, e, d, m, c;
 
     mpz_inits(p, q, n, phi_n, e, d, m, c, NULL);
