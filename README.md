@@ -6,7 +6,7 @@ A calculator providing support for basic mathematical operations and cryptograph
 ## Features
 **Basic mathematics:**
 
-Basic mathematic expressions with several operations and operands are supported (+,-,*,/).
+Basic mathematic expressions with several operations and operands are supported ($+$, $-$, $*$, $/$).
 
 For example $3 * \sin(1.5708) + 4 / 2$ is a valid expression.
 
