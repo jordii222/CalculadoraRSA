@@ -63,6 +63,9 @@ where _bits_ is the length in bits of the generated prime.
 
 ## Operative structure
 ```
+ PROGRAM CONCEPT:
+
+
   ┌─────────────────────┐
   │  CLI Interface:     │
   │                     │
@@ -227,62 +230,62 @@ FUNCTION DESCRIPTION AND CALLS:
 ## Cryptographic algorithms
 This is a summary of several cryptographic or cryptography related algorithms. This program only implements Caesar's cryptosystem, affine cryptosystem and RSA cryptosystem.
 ```
-┌───────────────────────────────────────────────────────┐               ┌───────────────────────────────────────────┐      
-│ Caesar Cipher:                                        │               │ RSA algorithm                             │      
-│                                                       │               │                                           │      
-│ Alice (sender):                                       │               │ Bob (receiver):                           │      
-│ 1. Choose a shift key K                               │               │ 1. Chose two big primers p and q          │      
-│ 2. Encrypt the message m shifting every character     │               │ 2. Compute n=p*q and ϕ(n)=(p-1)*(q-1)     │      
-│    by K positions in the alphabet                     │               │ 3. Chose an exponent e (hardcoded?)       │      
-│ 4. Send the message                                   │               │    with 2<e<ϕ(n)and coprime with ϕ(n)     │      
-│                                                       │               │ 4. Compute the inverse d of e modulo ϕ(n) │      
-│ Bob (receiver):                                       │               │    (extended Euclid's algotithm)          │      
-│ 5. Shift every letter by -K positions in the alphabet │               │    d*e≡1 mod ϕ(n)                         │      
-│    to recover the original message m                  │               │ Public key: (n,e)                         │      
-└───────────────────────────────────────────────────────┘               │ Private key: d                            │      
-                                                                        │                                           │      
-┌────────────────────────────────────────────────────────────────┐      │ Alice (sender):                           │      
-│ Affine Cipher:                                                 │      │ 5. Encode message (m) into blocs          │      
-│                                                                │      │ 6. Encrypt blocs using c≡m^e mod n        │      
-│ Alice:(sender):                                                │      │    with Bob's public key                  │      
-│ 1. Choose two keys a and b such that a                         │      │ 7. Send c                                 │      
-│    and the size of the alphabet are coprime                    │      │                                           │      
-│ 2. Encode the message                                          │      │ Bob (receiver):                           │      
-│ 3. Compute (a*x + b) mod the alphabet size for every character │      │ 8. Decrypt using c^d≡m                    │      
-│ 4. Sends the message                                           │      └───────────────────────────────────────────┘
-│                                                                │
-│ Bob (receiver):                                                │
-│ 5. Compute a_inv * (x - b) mod the alphabet size for each      │
-│    character where a_inv is the multiplicative inverse of      │
-│    a modulo the alphabet size                                  │
-└────────────────────────────────────────────────────────────────┘
-┌────────────────────────────────────────────────┐      ┌─────────────────────────────────────────────────┐
-│ Diffie-Hellman key exchange algorithm          │      │ ElGamal encryption algorithm                    │
-│                                                │      │                                                 │
-│ Alice and Bob:                                 │      │ Alice and Bob:                                  │
-│ 1. Publicly agree on a large prime mod p       │      │ 1. Publicly agree on a large prime mod p        │
-│    and a primitive root g mod p                │      │    and a primitive root g mod p                 │
-│ 2. Chose a random number n between 1 and p−1   │      │                                                 │
-│    and compute g^n                             │      │ Bob:(receiver):                                 │
-│    a and g^a for Alice and b and g^b for Bob   │      │ 2. Choses a random number b between 1 and p−1   │
-│    Public key: g^n                             │      │    and compute g^b                              │
-│    Private key: n                              │      │                                                 │
-│ 3. Both share their respective public keys     │      │ Alicer(sender):                                 │
-│ 4. Both compute the shared key g^a^b and g^b^a │      │ 3. Choses a efimeral number a between 1 and p−1 │
-│    K=g^a^b                                     │      │    and compute g^a                              │
-└────────────────────────────────────────────────┘      │ 4. Computes the shared secret K=(g^b)^a         │
-                                                        │ 5. Encrypts the message using c≡m*K mod p       │
-                                                        │    and sends it together with g^a               │
-                                                        │                                                 │
-                                                        │ Bob (receiver):                                 │
-                                                        │ 6. Computes the shared secret K=(g^b)^a         │
-                                                        │ 7. Decrypts the message using m≡c*K^-1≡m mod p  │
-                                                        └─────────────────────────────────────────────────┘
+ STUDIED ALGORITHMS:
 
+
+ ┌───────────────────────────────────────────────────────┐                ┌───────────────────────────────────────────┐
+ │ Caesar Cipher:                                        │                │ RSA algorithm                             │
+ │                                                       │                │                                           │
+ │ Alice (sender):                                       │                │ Bob (receiver):                           │
+ │ 1. Choose a shift key K                               │                │ 1. Chose two big primers p and q          │
+ │ 2. Encrypt the message m shifting every character     │                │ 2. Compute n=p*q and ϕ(n)=(p-1)*(q-1)     │
+ │    by K positions in the alphabet                     │                │ 3. Chose an exponent e (hardcoded?)       │
+ │ 4. Send the message                                   │                │    with 2<e<ϕ(n)and coprime with ϕ(n)     │
+ │                                                       │                │ 4. Compute the inverse d of e modulo ϕ(n) │
+ │ Bob (receiver):                                       │                │    (extended Euclid's algotithm)          │
+ │ 5. Shift every letter by -K positions in the alphabet │                │    d*e≡1 mod ϕ(n)                         │
+ │    to recover the original message m                  │                │ Public key: (n,e)                         │
+ └───────────────────────────────────────────────────────┘                │ Private key: d                            │
+                                                                          │                                           │
+ ┌────────────────────────────────────────────────────────────────┐       │ Alice (sender):                           │
+ │ Affine Cipher:                                                 │       │ 5. Encode message (m) into blocs          │
+ │                                                                │       │ 6. Encrypt blocs using c≡m^e mod n        │
+ │ Alice:(sender):                                                │       │    with Bob's public key                  │
+ │ 1. Choose two keys a and b such that a                         │       │ 7. Send c                                 │
+ │    and the size of the alphabet are coprime                    │       │                                           │
+ │ 2. Encode the message                                          │       │ Bob (receiver):                           │
+ │ 3. Compute (a*x + b) mod the alphabet size for every character │       │ 8. Decrypt using c^d≡m                    │
+ │ 4. Sends the message                                           │       └───────────────────────────────────────────┘
+ │                                                                │
+ │ Bob (receiver):                                                │ ┌─────────────────────────────────────────────────┐
+ │ 5. Compute a_inv * (x - b) mod the alphabet size for each      │ │ ElGamal encryption algorithm                    │
+ │    character where a_inv is the multiplicative inverse of      │ │                                                 │
+ │    a modulo the alphabet size                                  │ │ Alice and Bob:                                  │
+ └────────────────────────────────────────────────────────────────┘ │ 1. Publicly agree on a large prime mod p        │
+                                                                    │    and a primitive root g mod p                 │
+                                                                    │                                                 │
+ ┌────────────────────────────────────────────────┐                 │ Bob:(receiver):                                 │
+ │ Diffie-Hellman key exchange algorithm          │                 │ 2. Choses a random number b between 1 and p−1   │
+ │                                                │                 │    and compute g^b                              │
+ │ Alice and Bob:                                 │                 │                                                 │
+ │ 1. Publicly agree on a large prime mod p       │                 │ Alicer(sender):                                 │
+ │    and a primitive root g mod p                │                 │ 3. Choses a efimeral number a between 1 and p−1 │
+ │ 2. Chose a random number n between 1 and p−1   │                 │    and compute g^a                              │
+ │    and compute g^n                             │                 │ 4. Computes the shared secret K=(g^b)^a         │
+ │    a and g^a for Alice and b and g^b for Bob   │                 │ 5. Encrypts the message using c≡m*K mod p       │
+ │    Public key: g^n                             │                 │    and sends it together with g^a               │
+ │    Private key: n                              │                 │                                                 │
+ │ 3. Both share their respective public keys     │                 │ Bob (receiver):                                 │
+ │ 4. Both compute the shared key g^a^b and g^b^a │                 │ 6. Computes the shared secret K=(g^b)^a         │
+ │    K=g^a^b                                     │                 │ 7. Decrypts the message using m≡c*K^-1≡m mod p  │
+ └────────────────────────────────────────────────┘                 └─────────────────────────────────────────────────┘
 ```
 ## Arbitrary precision computations
 It was initially planned to implement our own library for handling arbitrary precision calculations but ultimately gmp has been used for simplicity.
 ```
+ ARBITRARY PRECISION:
+
+
       Operations with really big integers
 
                    │
