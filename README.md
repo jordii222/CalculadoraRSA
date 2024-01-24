@@ -28,12 +28,12 @@ where _expressions_ are numbers or numerically evaluated expressions.
 ```
   >> caesar(shift, "message")
 ```
-where shift is the displacement value.
+where shift is the displacement value with $c=m+\textrm{shift}$.
 * Afine cypher
 ```
   >> affine(a, b, "message")
 ```
-where _a_ and _b_ are the coefficients ($c=a\cdot m + b\ mod\ \textrm{alphabet size}$).
+where _a_ and _b_ are the coefficients $c=a\cdot m + b\ mod\ \textrm{alphabet size}$.
 * RSA
 ```
   >> rsa("prime1","prime2","message")
