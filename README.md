@@ -7,7 +7,13 @@ A calculator providing support for basic mathematical operations and cryptograph
 **Basic mathematics:**
 
 Basic mathematic expressions with several operations and operands are supported (+,-,*,/).\\
-For example 3 * \sin(1.5708) + 4 / 2$ is a valid expression.
+For example 3 * \sin(1.5708) + 4 / 2$ is a valid expression.\\
+
+Other redundant textual functions can be used:
+```
+  >> add(expression1,expression2,expression3,...)
+  >> multiply(expression1,expression2,expression3,...)
+```
 
 **Cryptographic functions:**
 
@@ -26,6 +32,15 @@ where _a_ and _b_ are the coefficients ($c=a\cdot m + b \textrm{ mod }\ alphabet
   >> rsaparam("prime1","prime2","message")
 ```
 where _p_ is _prime1_ and _q_ is _prime2_.
+
+**Other functions:**
+
+* Prime generation
+```
+  >> bigprime(bits)
+```
+where _bits_ is the length in bits of the generated prime.
+* 
 
 ## General structure
 ```
