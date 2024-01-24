@@ -6,7 +6,8 @@ A calculator providing support for basic mathematical operations and cryptograph
 ## Features
 **Basic mathematics:**
 
-Basic mathematic expressions with several operations and operands are supported (+,-,*,/).
+Basic mathematic expressions with several operations and operands are supported (+,-,*,/).\\
+For example 3 * \sin(1.5708) + 4 / 2$ is a valid expression.
 
 **Cryptographic functions:**
 
@@ -22,8 +23,9 @@ where shift is the displacement value.
 where _a_ and _b_ are the coefficients ($c=a\cdot m + b \textrm{ mod }\ alphabet\ size$).
 * RSA
 ```
-  >> 
+  >> rsaparam("prime1","prime2","message")
 ```
+where _p_ is _prime1_ and _q_ is _prime2_.
 
 ## General structure
 ```
