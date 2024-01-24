@@ -56,12 +56,12 @@ where _bits_ is the length in bits of the generated prime.
 ```
 * Exit
 ```
-  >> exit
-  >> quit
-  >> q
+  >> exit()
+  >> quit()
+  >> q()
 ```
 
-## General structure
+## Operative structure
 ```
   ┌─────────────────────┐
   │  CLI Interface:     │
@@ -109,6 +109,120 @@ where _bits_ is the length in bits of the generated prime.
                                                             ├─►  Afine cryptosystems (encrypt/decrypt)
                                                             │
                                                             └─►  RSA (encrypt/decrypt)
+```
+## File and function wise structure
+```
+ PROGRAM FLOW:
+
+
+          enigma.c  ──────────────►  ast.h  ────────────────►  crypto.h
+
+             │                         │                          │
+             │                         │                          │
+             ▼                         ▼                          ▼
+       ┌──────────────┐       ┌─────────────────┐         ┌───────────────┐
+       │ Main program │       │ Abstract Syntax │         │ Cryptographic │
+       └──────────────┘       │   Tree parser   │         │    library    │
+       Handles arguments      └─────────────────┘         └───────────────┘
+       Receives input         Parses input text           Implements the main
+       Passes input to the    into numbers, text,         cyptographic functions
+       AST parser.            operators and functions.    such as caesar(), affine()
+                              Evaluates expressions       and rsa() as well
+                              calling the more advanced
+                              functions in crypto.h when
+                              needed.
+```
+```
+FUNCTION DESCRIPTION AND CALLS:
+
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                                                                               │
+│ ┌──────────┐                                                                                                                                                  │
+│ │ enigma.c │                                                                                                                                                  │
+│ └──────────┘                                                                                                                                                  │
+│                                                                                                                                                               │
+│   - int actio():                                                                                                                                              │
+│     + Description: Executes interactive mode, parsing and evaluating user input.                                                                              │
+│     + Calls: parseExpr(), eval()                                                                                                                              │
+│                                                                                                                                                               │
+│   - int lectio(int argc, char argv[]):                                                                                                                        │
+│     + Description: Reads expressions from command arguments, concatenates them, and outputs the result.                                                       │
+│     + Calls: parseExpr(), eval()                                                                                                                              │
+│                                                                                                                                                               │
+│   - void help():                                                                                                                                              │
+│     + Description: Prints a help message with usage information.                                                                                              │
+│                                                                                                                                                               │
+│   - void title():                                                                                                                                             │
+│     + Description: Prints the title of the program.                                                                                                           │
+│                                                                                                                                                               │
+│   - int main(int argc, char argv[]):                                                                                                                          │
+│     + Description: Main entry point of the program. Handles command-line arguments and executes the appropriate functionality.                                │
+│     + Calls: title(), actio(), lectio(), help()                                                                                                               │
+│                                                                                                                                                               │
+│ ┌───────┐                                                                                                                                                     │
+│ │ ast.h │                                                                                                                                                     │
+│ └───────┘                                                                                                                                                     │
+│                                                                                                                                                               │
+│   - AST newNode(char op, double num, char name, AST args, int numArgs, AST left, AST right):                                                                  │
+│     + Description: Creates a new node for the Abstract Syntax Tree (AST).                                                                                     │
+│                                                                                                                                                               │
+│   - double parseNum(char s):                                                                                                                                  │
+│     + Description: Parses a number from the input string and moves the string forward.                                                                        │
+│                                                                                                                                                               │
+│   - AST parseExpr(char s):                                                                                                                                    │
+│     + Description: Parses an expression and moves the string forward.                                                                                         │
+│     + Calls: parseTerm()                                                                                                                                      │
+│                                                                                                                                                               │
+│   - AST parseFactor(char s):                                                                                                                                  │
+│     + Description: Parses a factor and moves the string forward.                                                                                              │
+│     + Calls: parseExpr()                                                                                                                                      │
+│                                                                                                                                                               │
+│   - AST parseFunction(char s):                                                                                                                                │
+│     + Description: Parses a function with arguments and moves the string forward.                                                                             │
+│     + Calls: parseExpr()                                                                                                                                      │
+│                                                                                                                                                               │
+│   - AST parseTerm(char s):                                                                                                                                    │
+│     + Description: Parses a term and moves the string forward.                                                                                                │
+│     + Calls: parseExpr(), parseFunction()                                                                                                                     │
+│                                                                                                                                                               │
+│   - double eval(AST node):                                                                                                                                    │
+│     + Description: Evaluates the AST and returns the result.                                                                                                  │
+│                                                                                                                                                               │
+│ ┌──────────┐                                                                                                                                                  │
+│ │ crypto.h │                                                                                                                                                  │
+│ └──────────┘                                                                                                                                                  │
+│                                                                                                                                                               │
+│   - char caesar(int n, const char s):                                                                                                                         │
+│     + Description: Applies the Caesar cipher to a string.                                                                                                     │
+│                                                                                                                                                               │
+│   - char affine(int a, int b, const char s):                                                                                                                  │
+│     + Description: Applies the Affine cipher to a string.                                                                                                     │
+│                                                                                                                                                               │
+│   - int is_prime(mpz_t num):                                                                                                                                  │
+│     + Description: Checks if a given number is prime.                                                                                                         │
+│     + Calls: mpz_probab_prime_p()                                                                                                                             │
+│                                                                                                                                                               │
+│   - void calculate_rsa_params(mpz_t p, mpz_t q, mpz_t n, mpz_t phi_n, mpz_t e, mpz_t d):                                                                      │
+│     + Description: Calculates parameters for RSA encryption.                                                                                                  │
+│     + Calls: mpz_mul(), mpz_sub_ui(), mpz_gcd(), mpz_invert()                                                                                                 │
+│                                                                                                                                                               │
+│   - void encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n):                                                                                                         │
+│     + Description: Encrypts a message using RSA.                                                                                                              │
+│     + Calls: mpz_powm()                                                                                                                                       │
+│                                                                                                                                                               │
+│   - void decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n):                                                                                                         │
+│     + Description: Decrypts a message using RSA.                                                                                                              │
+│     + Calls: mpz_powm()                                                                                                                                       │
+│                                                                                                                                                               │
+│   - void rsa(const char prime_str1, const char prime_str2, const char message):                                                                               │
+│     + Description: Performs RSA encryption and decryption on a message.                                                                                       │
+│     + Calls: mpz_set_str(), is_prime(), calculate_rsa_params(), encrypt(), decrypt(), mpz_get_ui()                                                            │
+│                                                                                                                                                               │
+│   - char big_prime(int bits):                                                                                                                                 │
+│     + Description: Generates a big random prime of a certain bit length.                                                                                      │
+│     + Calls: mpz_init(), gmp_randinit_default(), gmp_randseed_ui(), mpz_urandomb(), mpz_setbit(), mpz_nextprime(), mpz_clear(), gmp_randclear(), mpz_get_str()│
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 ## Cryptographic algorithms
 This is a summary of several cryptographic or cryptography related algorithms. This program only implements Caesar's cryptosystem, affine cryptosystem and RSA cryptosystem.
