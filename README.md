@@ -14,11 +14,12 @@ Basic mathematic expressions with several operations and operands are supported 
 ```
   >> caesar(shift, "message")
 ```
+where shift is the displacement value.
 * Afine cypher
 ```
   >> affine(a, b, "message")
 ```
-where _a_ and _b_ are the coefficients _c = a*m + b mod _
+where _a_ and _b_ are the coefficients $c=a\cdot m + b \textrm{ mod } alphabet\ size$.
 * RSA
 ```
   >> 
