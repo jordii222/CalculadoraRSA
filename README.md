@@ -8,7 +8,7 @@ A calculator providing support for basic mathematical operations and cryptograph
 
 Basic mathematic expressions with several operations and operands are supported (+,-,*,/).
 
-For example 3 * \sin(1.5708) + 4 / 2$ is a valid expression.
+For example $3 * \sin(1.5708) + 4 / 2$ is a valid expression.
 
 Other redundant textual functions can be used:
 ```
