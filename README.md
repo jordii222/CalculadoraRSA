@@ -33,7 +33,7 @@ where shift is the displacement value.
 ```
   >> affine(a, b, "message")
 ```
-where _a_ and _b_ are the coefficients ($c=a\cdot m + b \textrm{ mod }\ alphabet\_size$).
+where _a_ and _b_ are the coefficients ($c=a\cdot m + b \textrm{ mod }\ alphabet\textrm{_}size$).
 * RSA
 ```
   >> rsa("prime1","prime2","message")
